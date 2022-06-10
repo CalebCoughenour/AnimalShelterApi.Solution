@@ -62,5 +62,31 @@ namespace AnimalShelterApi.Controllers
 
       return await query.ToListAsync();
     }
+
+    /// <summary>
+    /// Returns an individual cat based off it's Id
+    /// </summary>
+    /// <returns>A single cat based off Id</returns>
+    /// <remarks>
+    ///
+    /// Example request
+    /// GET /api/cats/1
+    ///
+    /// </remarks>
+     ///<response code="200">Returns a cat from shelter list</response>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesDefaultResponseType]
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Cat>> GetCat(int id)
+    {
+        var cat = await _db.Cats.FindAsync(id);
+
+        if (cat == null)
+        {
+            return NotFound();
+        }
+
+        return cat;
+    }
   }
 }
