@@ -3,14 +3,16 @@ using System;
 using AnimalShelterApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AnimalShelterApi.Migrations
 {
     [DbContext(typeof(AnimalShelterApiContext))]
-    partial class AnimalShelterApiContextModelSnapshot : ModelSnapshot
+    [Migration("20220610201842_add cat to database")]
+    partial class addcattodatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
