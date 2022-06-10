@@ -31,7 +31,7 @@ namespace AnimalShelterApi.Controllers
     /// GET /api/dogs
     ///
     /// </remarks>
-    ///<response code="200">Returns a list of dogss in shelter</response>
+    ///<response code="200">Returns a list of dogs in shelter</response>
 
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesDefaultResponseType]
