@@ -69,7 +69,7 @@ namespace AnimalShelterApi.Controllers
     /// <returns>A single animal based off Id</returns>
     /// <remarks>
     ///
-    /// Sample request
+    /// Example request
     /// GET /api/animals/1
     ///
     /// </remarks>
@@ -111,6 +111,85 @@ namespace AnimalShelterApi.Controllers
       await _db.SaveChangesAsync();
 
       return CreatedAtAction(nameof(GetAnimal), new { id = animal.AnimalId }, animal);
+    }
+
+    /// <summary>
+    /// Update Animal in list
+    /// </summary>
+    /// <returns> Updates an animal in the API</returns>
+    /// <remarks>
+    ///
+    /// REQUIRED:
+    /// Name, Species, DateTime
+    /// 
+    ///
+    /// </remarks>
+    ///<response code="201">Animal updated successfully</response>
+
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesDefaultResponseType]
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, Animal animal)
+    {
+      if (id != animal.AnimalId)
+      {
+        return BadRequest();
+      }
+
+      _db.Entry(animal).State = EntityState.Modified;
+
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!AnimalExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return NoContent();
+    }
+
+    /// <summary>
+    /// Delete Animal from list
+    /// </summary>
+    /// <returns> Delete an animal in the API</returns>
+    /// <remarks>
+    ///
+    /// Example Request:
+    /// DELETE /api/animals/1
+    ///
+    /// </remarks>
+    ///<response code="201">Animal updated successfully</response>
+
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesDefaultResponseType]
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteAnimal(int id)
+    {
+      var animal = await _db.Animals.FindAsync(id);
+      if (animal == null)
+      {
+        return NotFound();
+      }
+
+      _db.Animals.Remove(animal);
+      await _db.SaveChangesAsync();
+
+      return NoContent();
+    }
+
+
+    private bool AnimalExists(int id) // Checks if animal is in API
+    {
+      return _db.Animals.Any(e => e.AnimalId == id);
     }
   }
 }
