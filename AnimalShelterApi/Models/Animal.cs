@@ -1,6 +1,7 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace AnimalShelterApi
+namespace AnimalShelterApi.Models
 {
   public class Animal
   {
@@ -14,6 +15,7 @@ namespace AnimalShelterApi
     [Range(1, 200)]
     public string Age { get; set; }
     public string Gender { get; set; }
+    [Required]
     public DateTime DateCreated  { get; set; }
     public Animal()
     {
