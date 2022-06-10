@@ -88,5 +88,29 @@ namespace AnimalShelterApi.Controllers
 
         return cat;
     }
+
+    /// <summary>
+    /// Add cat to list
+    /// </summary>
+    /// <returns> Adds a new cat to the API</returns>
+    /// <remarks>
+    ///
+    /// REQUIRED:
+    /// Name, Species, DateTime
+    /// 
+    ///
+    /// </remarks>
+    ///<response code="201">cat created successfully</response>
+
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesDefaultResponseType]
+    [HttpPost]
+    public async Task<ActionResult<Cat>> Post(Cat cat)
+    {
+      _db.Cats.Add(cat);
+      await _db.SaveChangesAsync();
+
+      return CreatedAtAction(nameof(GetCat), new { id = cat.CatId }, cat);
+    }
   }
 }
