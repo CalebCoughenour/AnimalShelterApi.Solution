@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AnimalShelterApi.Models
 {
-  public class AnimalShelterApiContext : DbContext
+  public class AnimalShelterApiContext : IdentityDbContext
   {
       public AnimalShelterApiContext(DbContextOptions<AnimalShelterApiContext> options)
             : base(options)
