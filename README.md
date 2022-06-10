@@ -78,7 +78,7 @@
 ```
   * The date/time will be added automatically and is in UTC
 
-  4. PUT{id} - This will update an exisisting entry - http://localhost:5000/api/Cats/2
+  4. PUT{id} - This will update an existing entry - http://localhost:5000/api/Cats/2
   ```
   ($"cats/{id}", Method.PUT)
   ```
