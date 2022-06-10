@@ -13,7 +13,7 @@ namespace AnimalShelterApi.Models
     [StringLength(50, ErrorMessage = "Species must be 50 or less characters")]
     public string Species { get; set; }
     [Range(1, 200)]
-    public string Age { get; set; }
+    public int Age { get; set; }
     public string Gender { get; set; }
     [Required]
     public DateTime DateCreated  { get; set; }
