@@ -46,6 +46,7 @@
 * 
 * Next, in the AnimalShelterApi directory type "dotnet run" to start the program
 * When the app runs it will automatically open a webpage and display the Swagger UI for the API
+* The Database currently has 1 dog and 3 cats in. Please read the instructions below on how to use the API
 
  ## API Calls (all calls can be done on both cats & dogs)
 
