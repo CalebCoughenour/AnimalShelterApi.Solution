@@ -157,6 +157,35 @@ namespace AnimalShelterApi.Controllers
       return NoContent();
     }
 
+    /// <summary>
+    /// Delete cat from list
+    /// </summary>
+    /// <returns> Delete a cat in the API</returns>
+    /// <remarks>
+    ///
+    /// Example Request:
+    /// DELETE /api/cats/1
+    ///
+    /// </remarks>
+    ///<response code="201">cat deleted successfully</response>
+
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesDefaultResponseType]
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteCat(int id)
+    {
+      var cat = await _db.Cats.FindAsync(id);
+      if (cat == null)
+      {
+        return NotFound();
+      }
+
+      _db.Cats.Remove(cat);
+      await _db.SaveChangesAsync();
+
+      return NoContent();
+    }
+
      private bool CatExists(int id) // Checks if cat is in API
     {
       return _db.Cats.Any(e => e.CatId == id);
