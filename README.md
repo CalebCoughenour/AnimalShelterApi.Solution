@@ -88,8 +88,11 @@
   ```
   ($"cats/{id}", Method.DELETE)
   ```
-
+## Further Exploration
+### Swagger
   ![Swagger UI](AnimalShelterApi/wwwroot/img/SwaggerUI.png)
+
+* Swagger is a UI used for interacting with an API to make it easier for developers to build a project using this API
 
 ## Known Bugs
 
