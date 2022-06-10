@@ -62,7 +62,7 @@
  ```
   * The Id at the end can be replaced with any existing Id
 
- 3. POST - Name & Species are required - http:localhost:5001/api/Cats
+ 3. POST - Name & Species are required - http://localhost:5001/api/Cats
 ```
  ($"cats", Method.POST)
 ```
@@ -78,7 +78,7 @@
 ```
   * The date/time will be added automatically and is in UTC
 
-  4. PUT{id} - This will update an exisisting entry - http:localhost:5000/api/Cats/2
+  4. PUT{id} - This will update an exisisting entry - http://localhost:5000/api/Cats/2
   ```
   ($"cats/{id}", Method.PUT)
   ```
