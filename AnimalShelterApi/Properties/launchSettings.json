@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "CretaceousPark": {
+    "AnimalShelterApi": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
