@@ -36,7 +36,7 @@ namespace AnimalShelterApi.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesDefaultResponseType]
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Animal>>> Get(string name, string species, string age, string gender)
+    public async Task<ActionResult<IEnumerable<Animal>>> Get(string name, string species, int age, string gender)
     {
       var query = _db.Animals.AsQueryable();
 
@@ -50,7 +50,7 @@ namespace AnimalShelterApi.Controllers
         query = query.Where(entry => entry.Species == species);
       }
 
-      if (age != null)
+      if (age != 0)
       {
         query = query.Where(entry => entry.Age == age);
       } 
@@ -87,6 +87,30 @@ namespace AnimalShelterApi.Controllers
         }
 
         return animal;
+    }
+
+    /// <summary>
+    /// Add Animal to list
+    /// </summary>
+    /// <returns> Adds a new animal to the API</returns>
+    /// <remarks>
+    ///
+    /// REQUIRED:
+    /// Name, Species, DateTime
+    /// 
+    ///
+    /// </remarks>
+    ///<response code="201">Animal created successfully</response>
+
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesDefaultResponseType]
+    [HttpPost]
+    public async Task<ActionResult<Animal>> Post(Animal animal)
+    {
+      _db.Animals.Add(animal);
+      await _db.SaveChangesAsync();
+
+      return CreatedAtAction(nameof(GetAnimal), new { id = animal.AnimalId }, animal);
     }
   }
 }
