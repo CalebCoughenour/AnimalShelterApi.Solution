@@ -100,7 +100,7 @@ namespace AnimalShelterApi.Controllers
     /// 
     ///
     /// </remarks>
-    ///<response code="201">cat created successfully</response>
+    ///<response code="201">Cat created successfully</response>
 
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesDefaultResponseType]
@@ -111,6 +111,55 @@ namespace AnimalShelterApi.Controllers
       await _db.SaveChangesAsync();
 
       return CreatedAtAction(nameof(GetCat), new { id = cat.CatId }, cat);
+    }
+
+    /// <summary>
+    /// Update cat from list
+    /// </summary>
+    /// <returns> Updates a cat in the API</returns>
+    /// <remarks>
+    ///
+    /// REQUIRED:
+    /// Name, Species, DateTime
+    /// 
+    ///
+    /// </remarks>
+    ///<response code="201">Cat updated successfully</response>
+
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesDefaultResponseType]
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, Cat cat)
+    {
+      if (id != cat.CatId)
+      {
+        return BadRequest();
+      }
+
+      _db.Entry(cat).State = EntityState.Modified;
+
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!CatExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return NoContent();
+    }
+
+     private bool CatExists(int id) // Checks if cat is in API
+    {
+      return _db.Cats.Any(e => e.CatId == id);
     }
   }
 }
