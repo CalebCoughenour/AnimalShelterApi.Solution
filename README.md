@@ -92,7 +92,7 @@
 
 ## Known Bugs
 
-* No known issues
+* There is no authentication currently, I am working on adding JWT authentication but it is not implemented yet
 
 ## License
 
