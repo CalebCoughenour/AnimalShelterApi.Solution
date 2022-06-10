@@ -12,33 +12,33 @@ namespace AnimalShelterApi.Controllers
   [Produces("application/json")]
   [Route("api/[controller]")]
   [ApiController]
-  public class AnimalsController : ControllerBase
+  public class DogsController : ControllerBase
   {
     private readonly AnimalShelterApiContext _db;
 
-    public AnimalsController(AnimalShelterApiContext db)
+    public DogsController(AnimalShelterApiContext db)
     {
       _db = db;
     }
 
     /// <summary>
-    /// Returns a list of animals
+    /// Returns a list of dogs
     /// </summary>
-    /// <returns> A List of animals</returns>
+    /// <returns> A List of dogs</returns>
     /// <remarks>
     ///
     /// Sample request
-    /// GET /api/animals
+    /// GET /api/dogs
     ///
     /// </remarks>
-    ///<response code="200">Returns a list of animals in shelter</response>
+    ///<response code="200">Returns a list of dogss in shelter</response>
 
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesDefaultResponseType]
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Animal>>> Get(string name, string species, int age, string gender)
+    public async Task<ActionResult<IEnumerable<Dog>>> Get(string name, string species, int age, string gender)
     {
-      var query = _db.Animals.AsQueryable();
+      var query = _db.Dogs.AsQueryable();
 
       if (name != null)
       {
@@ -64,35 +64,35 @@ namespace AnimalShelterApi.Controllers
     }
 
     /// <summary>
-    /// Returns an individual animal based off it's Id
+    /// Returns an individual dog based off it's Id
     /// </summary>
-    /// <returns>A single animal based off Id</returns>
+    /// <returns>A single dog based off Id</returns>
     /// <remarks>
     ///
     /// Example request
-    /// GET /api/animals/1
+    /// GET /api/dogs/1
     ///
     /// </remarks>
-    ///<response code="200">Returns an animal from shelter list</response>
+    ///<response code="200">Returns a dog from shelter list</response>
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesDefaultResponseType]
     [HttpGet("{id}")]
-    public async Task<ActionResult<Animal>> GetAnimal(int id)
+    public async Task<ActionResult<Dog>> GetDog(int id)
     {
-        var animal = await _db.Animals.FindAsync(id);
+        var dog = await _db.Dogs.FindAsync(id);
 
-        if (animal == null)
+        if (dog == null)
         {
             return NotFound();
         }
 
-        return animal;
+        return dog;
     }
 
     /// <summary>
-    /// Add Animal to list
+    /// Add dog to list
     /// </summary>
-    /// <returns> Adds a new animal to the API</returns>
+    /// <returns> Adds a new dog to the API</returns>
     /// <remarks>
     ///
     /// REQUIRED:
@@ -100,23 +100,23 @@ namespace AnimalShelterApi.Controllers
     /// 
     ///
     /// </remarks>
-    ///<response code="201">Animal created successfully</response>
+    ///<response code="201">Dog created successfully</response>
 
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesDefaultResponseType]
     [HttpPost]
-    public async Task<ActionResult<Animal>> Post(Animal animal)
+    public async Task<ActionResult<Dog>> Post(Dog dog)
     {
-      _db.Animals.Add(animal);
+      _db.Dogs.Add(dog);
       await _db.SaveChangesAsync();
 
-      return CreatedAtAction(nameof(GetAnimal), new { id = animal.AnimalId }, animal);
+      return CreatedAtAction(nameof(GetDog), new { id = dog.DogId }, dog);
     }
 
     /// <summary>
-    /// Update Animal in list
+    /// Update dog from list
     /// </summary>
-    /// <returns> Updates an animal in the API</returns>
+    /// <returns> Updates a dog in the API</returns>
     /// <remarks>
     ///
     /// REQUIRED:
@@ -124,19 +124,19 @@ namespace AnimalShelterApi.Controllers
     /// 
     ///
     /// </remarks>
-    ///<response code="201">Animal updated successfully</response>
+    ///<response code="201">Dog updated successfully</response>
 
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesDefaultResponseType]
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(int id, Animal animal)
+    public async Task<IActionResult> Put(int id, Dog dog)
     {
-      if (id != animal.AnimalId)
+      if (id != dog.DogId)
       {
         return BadRequest();
       }
 
-      _db.Entry(animal).State = EntityState.Modified;
+      _db.Entry(dog).State = EntityState.Modified;
 
       try
       {
@@ -144,7 +144,7 @@ namespace AnimalShelterApi.Controllers
       }
       catch (DbUpdateConcurrencyException)
       {
-        if (!AnimalExists(id))
+        if (!DogExists(id))
         {
           return NotFound();
         }
@@ -158,38 +158,38 @@ namespace AnimalShelterApi.Controllers
     }
 
     /// <summary>
-    /// Delete Animal from list
+    /// Delete dog from list
     /// </summary>
-    /// <returns> Delete an animal in the API</returns>
+    /// <returns> Delete a dog in the API</returns>
     /// <remarks>
     ///
     /// Example Request:
-    /// DELETE /api/animals/1
+    /// DELETE /api/dogs/1
     ///
     /// </remarks>
-    ///<response code="201">Animal updated successfully</response>
+    ///<response code="201">Dog deleted successfully</response>
 
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesDefaultResponseType]
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAnimal(int id)
+    public async Task<IActionResult> DeleteDog(int id)
     {
-      var animal = await _db.Animals.FindAsync(id);
-      if (animal == null)
+      var dog = await _db.Dogs.FindAsync(id);
+      if (dog == null)
       {
         return NotFound();
       }
 
-      _db.Animals.Remove(animal);
+      _db.Dogs.Remove(dog);
       await _db.SaveChangesAsync();
 
       return NoContent();
     }
 
 
-    private bool AnimalExists(int id) // Checks if animal is in API
+    private bool DogExists(int id) // Checks if animal is in API
     {
-      return _db.Animals.Any(e => e.AnimalId == id);
+      return _db.Dogs.Any(e => e.DogId == id);
     }
   }
 }
