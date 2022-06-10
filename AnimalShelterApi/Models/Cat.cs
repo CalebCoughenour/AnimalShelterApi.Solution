@@ -15,7 +15,6 @@ namespace AnimalShelterApi.Models
     [Range(1, 200)]
     public int Age { get; set; }
     public string Gender { get; set; }
-    [Required]
     public DateTime DateCreated  { get; set; }
     public Cat()
     {
