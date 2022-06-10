@@ -93,6 +93,13 @@
   ![Swagger UI](AnimalShelterApi/wwwroot/img/SwaggerUI.png)
 
 * Swagger is a UI used for interacting with an API to make it easier for developers to build a project using this API
+* To use this UI, run the project using "dotnet watch run"
+* Next you can select any of the drop downs (GET, GET{id}, POST, etc.)
+  * From there, you can see what keys are available for GET methods
+  * You can see the Request Body for Post/Put Methods
+  * You can see what key is required for Delete Method
+* You can also click the "Try it out" button in the top right of the drop down, this will allow you to interact with the database directly
+* At the bottom of the page there is a drop down for Schemas, this will show the keys for each schema (the red asteriked keys are required)
 
 ## Known Bugs
 
