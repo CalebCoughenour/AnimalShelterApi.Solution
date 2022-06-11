@@ -77,6 +77,58 @@ namespace AnimalShelterApi.Controllers
       });
     }
 
+    [HttpPost]
+    [Route("Login")]
+    public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
+    {
+      if(ModelState.IsValid)
+      {
+        var existingUser = await _userManager.FindByEmailAsync(user.Email);
+
+        if(existingUser == null)
+        {
+          return BadRequest(new RegistrationResponse()
+          {
+            Errors = new List<string>()
+            {
+              "Invalid login request"
+            },
+            Success = false
+          });
+        }
+
+        var isValid = await _userManager.CheckPasswordAsync(existingUser, user.Password);
+
+        if(!isValid)
+        {
+          return BadRequest(new RegistrationResponse()
+          {
+            Errors = new List<string>()
+            {
+              "Invalid login request"
+            },
+            Success = false
+          });
+        }
+
+        var jwtToken = GenerateJwtToken(existingUser);
+
+        return Ok(new RegistrationResponse()
+        {
+          Success = true,
+          Token = jwtToken
+        });
+      }
+
+      return BadRequest(new RegistrationResponse()
+      {
+        Errors = new List<string>() {
+          "Invalid payload"
+        },
+        Success = false
+      });
+    }
+
     private string GenerateJwtToken(IdentityUser user)
     {
       var jwtTokenHandler = new JwtSecurityTokenHandler();
